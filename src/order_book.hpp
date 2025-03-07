@@ -3,6 +3,7 @@
 
 #include "order.hpp"
 #include <set>  
+#include <iostream>
 
 class OrderBook {
 private:
@@ -24,6 +25,27 @@ private:
 public:
     void add_order(const Order &order);
     void match_orders();
+    bool is_empty() const {
+    return buy_orders.empty() && sell_orders.empty();
+}
+    void print_orders() const {
+        std::cout << "Buy Orders (sorted highest price first):\n";
+        for (const auto &ord : buy_orders) {
+            std::cout << "  Order ID: " << ord.order_id
+                      << ", Price: " << ord.price
+                      << ", Quantity: " << ord.quantity
+                      << ", Timestamp: " << ord.timestamp << "\n";
+        }
+
+        std::cout << "Sell Orders (sorted lowest price first):\n";
+        for (const auto &ord : sell_orders) {
+            std::cout << "  Order ID: " << ord.order_id
+                      << ", Price: " << ord.price
+                      << ", Quantity: " << ord.quantity
+                      << ", Timestamp: " << ord.timestamp << "\n";
+        }
+    }
+
 };
 
 #endif 
