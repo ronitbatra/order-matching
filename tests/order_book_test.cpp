@@ -9,6 +9,6 @@ int main() {
     ob.add_order(buy_order);
     ob.add_order(sell_order);
 
-    assert(ob.is_empty() == true); // Orders should match and clear
+    assert(ob.is_empty() == true);
     return 0;
 }

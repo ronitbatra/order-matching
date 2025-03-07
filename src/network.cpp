@@ -8,7 +8,7 @@
 #ifdef __linux__
 #include <sys/epoll.h>
 #elif __APPLE__
-#include <sys/event.h>  // Use kqueue on macOS
+#include <sys/event.h> 
 #include <sys/time.h>
 #endif
 

@@ -18,4 +18,4 @@ private:
     std::function<void(const std::string&)> order_callback;
 };
 
-#endif // NETWORK_HPP
+#endif
