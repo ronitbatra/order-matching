@@ -114,8 +114,8 @@ Sent 10000 UDP orders in 1.23 seconds
 
 Run unit tests to verify functionality:
 ```sh
-./test_order_book
-./test_matching_engine
+./order_book_test
+./matching_engine_test
 ```
 
 ---

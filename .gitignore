@@ -1,0 +1,9 @@
+# Build files
+build/
+*.o
+*.a
+*.so
+*.exe
+
+# System files
+.DS_Store
