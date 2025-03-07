@@ -1,5 +1,21 @@
 #include "matching_engine.hpp"
 #include <iostream>
+#include <sstream>
+
+MatchingEngine::MatchingEngine(int port) : running(true), network(port) {
+    network.set_order_callback([this](const std::string& order_data) {
+        std::istringstream iss(order_data);
+        std::string type;
+        double price;
+        int quantity;
+
+        if (iss >> type >> price >> quantity) {
+            bool is_buy = (type == "buy");
+            Order new_order = {0, is_buy, price, static_cast<uint64_t>(quantity), 0};
+            process_order(new_order, "AAPL"); 
+        }
+    });
+}
 
 void MatchingEngine::process_order(const Order &order, const std::string &symbol) {
     std::lock_guard<std::mutex> lock(queue_mutex);
@@ -12,6 +28,12 @@ void MatchingEngine::process_order(const Order &order, const std::string &symbol
 }
 
 void MatchingEngine::start_engine() {
+    std::thread net_thread([this]() {
+    network.start();
+    });
+    net_thread.detach();
+
+    
     std::thread order_processor([&]() {
         while (running || !order_queue.empty()) {  
             std::unique_lock<std::mutex> lock(queue_mutex);
